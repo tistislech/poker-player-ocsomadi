@@ -2,7 +2,7 @@ const {isPair, isSameSuit, getRankNum, getCards} = require('./SecretSauce.js')
 
 class Player {
   static get VERSION() {
-    return '0.25';
+    return '0.26';
   }
 
   static betRequest(gameState, bet) {
@@ -29,6 +29,7 @@ class Player {
       betValue = parseInt(betValue, 10)
       console.log(
         '@@@', gameState.game_id,
+        'version', this.VERSION,
         'stack',  me.stack,
         'isHighRiskValue', isHighRiskValue,
         'isLowRiskValue', isLowRiskValue,
