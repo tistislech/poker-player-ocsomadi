@@ -3,7 +3,7 @@ const {getChances, isWorthIt} = require('./Odds')
 
 class Player {
   static get VERSION() {
-    return '0.35';
+    return '0.36';
   }
 
   static betRequest(gameState, bet) {
@@ -20,7 +20,7 @@ class Player {
       // console.log('@@@cards numrank', getRankNum(cards[0].rank, cards[1].rank), getRankNum(cards[1].rank, cards[0].rank))
 
       if (isPreFlop) {
-        if (isGood && !isHighRiskValue) {
+        if (isGood/*&& !isHighRiskValue*/) {
           betValue = value * 1.20
         } else {
           betValue = 0
