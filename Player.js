@@ -2,7 +2,7 @@ const {isPair, isSameSuit, getRankNum, getCards} = require('./SecretSauce.js')
 
 class Player {
   static get VERSION() {
-    return '0.26';
+    return '0.27';
   }
 
   static betRequest(gameState, bet) {
@@ -22,7 +22,7 @@ class Player {
         betValue = value * 1.20
       } else if (!isPreFlop && isGood && !isHighRiskValue) {
         betValue = value
-      } else if (value <= isLowRiskValue) {
+      } else if (isLowRiskValue) {
         betValue = value
       }
 
