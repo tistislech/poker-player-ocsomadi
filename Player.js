@@ -1,8 +1,9 @@
 const {isPair, isSameSuit, getRankNum, getCards} = require('./SecretSauce.js')
+const pokerOdds = require('poker-odds')
 
 class Player {
   static get VERSION() {
-    return '0.27';
+    return '0.28';
   }
 
   static betRequest(gameState, bet) {
@@ -36,7 +37,8 @@ class Player {
         'minRaise', gameState.minimum_raise,
         'buyIn', gameState.current_buy_in,
         'value', value,
-        'betValue', betValue
+        'betValue', betValue,
+        'p', pokerOdds
       );
 
       bet(betValue);
