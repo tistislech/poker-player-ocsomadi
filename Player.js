@@ -3,7 +3,7 @@ const {getChances, isWorthIt} = require('./Odds')
 
 class Player {
   static get VERSION() {
-    return '0.37';
+    return '0.38';
   }
 
   static betRequest(gameState, bet) {
@@ -26,9 +26,9 @@ class Player {
           betValue = 0
         }
       } else {
-        const handChances = getChances(getCards(gameState), gameState.community_cards)
-        const is = isWorthIt(handChances)
-        console.log('handChances', handChances, 'is', is)
+        // const handChances = getChances(getCards(gameState), gameState.community_cards)
+        // const is = isWorthIt(handChances)
+        // console.log('handChances', handChances, 'is', is)
         betValue = value
         // if (is) {
         //   betValue = value * 1.20
