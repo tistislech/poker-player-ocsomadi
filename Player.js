@@ -3,7 +3,7 @@ const {getChances, isWorthIt} = require('./Odds')
 
 class Player {
   static get VERSION() {
-    return '0.43';
+    return '0.44';
   }
 
   static betRequest(gameState, bet) {
@@ -12,13 +12,13 @@ class Player {
       // console.log('@@@ gameState', JSON.stringify(gameState));
       // console.log('@@@card ranks', isPair(gameState), isSameSuit(gameState))
       const value = gameState.minimum_raise || gameState.current_buy_in
-      const isLowRiskValue = value <= parseInt(me.stack * 0.1, 10)
-      const isHighRiskValue = value >= parseInt(me.stack * 0.7, 10)
+      const isLowRiskValue = value <= Math.ceil(me.stack * 0.1)
+      const isHighRiskValue = value >= Math.ceil(me.stack * 0.7)
       let betValue = 0
       const isPreFlop = gameState.community_cards.length === 0
       const isGood = isPair(gameState) || isSameSuit(gameState) || isHighCard(gameState)
       // console.log('@@@cards numrank', getRankNum(cards[0].rank, cards[1].rank), getRankNum(cards[1].rank, cards[0].rank))
-
+      const handChances = getChances(getCards(gameState), gameState.community_cards)
       if (isPreFlop) {
         if (isGood/*&& !isHighRiskValue*/) {
           betValue = value * 1.20
@@ -41,7 +41,7 @@ class Player {
         // console.log('handChances', handChances, 'is', is)
       }
 
-      betValue = parseInt(betValue, 10)
+      betValue = Math.ceil(betValue)
       // console.log('gameState', JSON.stringify(gameState))
       console.log(
         '@@@', gameState.game_id,
