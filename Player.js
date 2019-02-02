@@ -2,28 +2,42 @@ const {isPair, isSameSuit, getRankNum, getCards} = require('./SecretSauce.js')
 
 class Player {
   static get VERSION() {
-    return '0.24';
+    return '0.25';
   }
 
   static betRequest(gameState, bet) {
     try {
       const me = gameState.players[gameState.in_action]
-      const riskValue = parseInt(me.stack * 0.1, 10)
+      // console.log('@@@ gameState', JSON.stringify(gameState));
+      // console.log('@@@card ranks', isPair(gameState), isSameSuit(gameState))
       const value = gameState.minimum_raise || gameState.current_buy_in
-      const betValue = value <= riskValue ? value : 0
-      console.log('@@@ gameState', JSON.stringify(gameState));
-      console.log('@@@card ranks', isPair(gameState), isSameSuit(gameState))
-      const cards = getCards(gameState)
-      console.log('@@@cards numrank', getRankNum(cards[0].rank, cards[1].rank), getRankNum(cards[1].rank, cards[2].rank))
+      const isLowRiskValue = value <= parseInt(me.stack * 0.1, 10)
+      const isHighRiskValue = value >= parseInt(me.stack * 0.5, 10)
+      let betValue = 0
+      const isPreFlop = gameState.community_cards.length === 0
+      const isGood = isPair(gameState) || isSameSuit(gameState)
+      // console.log('@@@cards numrank', getRankNum(cards[0].rank, cards[1].rank), getRankNum(cards[1].rank, cards[0].rank))
+
+      if (isPreFlop && isGood && !isHighRiskValue) {
+        betValue = value * 1.20
+      } else if (!isPreFlop && isGood && !isHighRiskValue) {
+        betValue = value
+      } else if (value <= isLowRiskValue) {
+        betValue = value
+      }
+
+      betValue = parseInt(betValue, 10)
       console.log(
         '@@@', gameState.game_id,
         'stack',  me.stack,
-        'riskValue', riskValue,
+        'isHighRiskValue', isHighRiskValue,
+        'isLowRiskValue', isLowRiskValue,
         'minRaise', gameState.minimum_raise,
         'buyIn', gameState.current_buy_in,
         'value', value,
         'betValue', betValue
       );
+
       bet(betValue);
     } catch (e) {
       console.log('@@@error', e)
