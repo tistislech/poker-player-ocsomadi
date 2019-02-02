@@ -15,14 +15,15 @@ const getChances = (cards, community_cards) => {
       probability: hc.count / allCases
     }
   })
-  console.log('@@@odds', hand, board, allCases, 'handChances', result)
+  console.log('handChances', result)
   return result
 }
 
-const isWorthIt = (handChances) => {
-  console.log('@h', handChances)
-  console.log('@@@filtered', handChances.filter(c => c.probability >= 0.2))
-  return handChances.filter(c => c.probability >= 0.2).length
+const isWorthIt = (handChances, isHighRiskValue) => {
+  let array = isHighRiskValue ? handChances.slice(2) : handChances
+  let filtered = array.filter(c => c.probability >= 0.2)
+  console.log('isHighRiskValue', isHighRiskValue, filtered)
+  return filtered.length
 }
 
 module.exports = { getChances, isWorthIt }
