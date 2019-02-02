@@ -3,7 +3,7 @@ const {getChances, isWorthIt} = require('./Odds')
 
 class Player {
   static get VERSION() {
-    return '0.50';
+    return '0.51';
   }
 
   static betRequest(gameState, bet) {
@@ -23,7 +23,7 @@ class Player {
         if (isGood/*&& !isHighRiskValue*/) {
           betValue = value * 1.20 + (gameState.small_blind * 2)
         } else if (!isHighRiskValue) {
-          betValue = value + (gameState.small_blind * 2)
+          betValue = 0 // value + (gameState.small_blind * 2)
         }
       } else {
         try {
