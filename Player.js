@@ -4,8 +4,13 @@ class Player {
   }
 
   static betRequest(gameState, bet) {
-    console.log(JSON.stringify(gameState));
-    bet(0);
+    try {
+      console.log(JSON.stringify(gameState));
+      bet(0);
+    } catch (e) {
+      console.log('@@@error', e)
+      bet(0);
+    }
   }
 
   static showdown(gameState) {
