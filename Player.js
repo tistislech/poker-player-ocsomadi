@@ -1,6 +1,6 @@
 class Player {
   static get VERSION() {
-    return '0.23';
+    return '0.24';
   }
 
   static getRankNum (rank) {
@@ -28,7 +28,7 @@ class Player {
       const riskValue = parseInt(me.stack * 0.1, 10)
       const value = gameState.minimum_raise || gameState.current_buy_in
       const betValue = value <= riskValue ? value : 0
-      console.log('@@@ gameState', gameState);
+      console.log('@@@ gameState', JSON.stringify(gameState));
       console.log(
         '@@@', gameState.game_id,
         'stack',  me.stack,
