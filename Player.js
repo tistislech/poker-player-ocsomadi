@@ -1,33 +1,8 @@
+const {isPair, isSameSuit, getRankNum, getCards} = require('./SecretSauce.js')
+
 class Player {
   static get VERSION() {
     return '0.24';
-  }
-
-  static getRankNum (rank, adj) {
-    switch (rank) {
-      case 'A':
-        if (adj === '2') return 1
-      case 'K':
-      case 'Q':
-      case 'J':
-        return 10
-      default:
-        return parseInt(rank)
-    }
-  }
-
-  static getCards ({players, in_action}) {
-    return players[in_action].hole_cards
-  }
-
-  static isPair (state) {
-    const cards = getCards(state)
-    return cards[0].rank === cards[1].rank
-  }
-
-  static isSameSuit (state) {
-    const cards = getCards(state)
-    return cards[0].suit === cards[1].suit
   }
 
   static betRequest(gameState, bet) {
