@@ -21,7 +21,7 @@ class Player {
       // const handChances = getChances(getCards(gameState), gameState.community_cards)
       if (isPreFlop) {
         const cards = getCards(gameState)
-        const rankNum = getRankNum(cards[0]) + getRankNum(cards[1])
+        const rankNum = getRankNum(cards[0].rank) + getRankNum(cards[1].rank)
         if (isGood/*&& !isHighRiskValue*/) {
           betValue = value * 1.20 + (gameState.small_blind * 2)
         } else if (rankNum >= 15 && value + (gameState.small_blind * 2) < Math.floor(me.stack * 0.7)) {
