@@ -1,13 +1,13 @@
 class Player {
   static get VERSION() {
-    return '0.2';
+    return '0.21';
   }
 
   static betRequest(gameState, bet) {
     try {
       const me = gameState.players[gameState.in_action]
       const riskValue = parseInt(me.stack * 0.1, 10)
-      console.log('@@@', me.stack, riskValue, gameState.minimum_raise);
+      console.log('@@@', gameState.game_id, 'stack', me.stack, 'riskValue', riskValue, 'minRaise', gameState.minimum_raise);
       const betValue = gameState.minimum_raise <= riskValue ? gameState.minimum_raise : 0
       console.log('@@@ betValue', betValue);
       bet(betValue);
