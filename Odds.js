@@ -9,15 +9,14 @@ const getChances = (cards, community_cards) => {
   const board = community_cards.map(c => mapCardToVendor(c))
 
   const [{count: allCases, handChances}] = pokerOdds.calculateEquity([hand], board)
-
-  handChances.map(hc => {
+  let result = handChances.map(hc => {
     return {
       name: hc.name,
       probability: hc.count / allCases
     }
   })
-
-  return handChances
+  console.log('@@@odds', hand, board, allCases, 'handChances', result)
+  return result
 }
 
 const isWorthIt = (handChances) => {
