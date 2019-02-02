@@ -7,7 +7,7 @@ const mapCardToVendor = (card) => {
 const getChances = (cards, community_cards) => {
   const hand = cards.map(c => mapCardToVendor(c))
   const board = community_cards.map(c => mapCardToVendor(c))
-
+  console.log('@@@', hand, 'cards', cards, 'community_cards', community_cards)
   const [{count: allCases, handChances}] = pokerOdds.calculateEquity([hand], board)
   let result = handChances.map(hc => {
     return {
