@@ -3,7 +3,7 @@ const {getChances, isWorthIt} = require('./Odds')
 
 class Player {
   static get VERSION() {
-    return '0.40';
+    return '0.41';
   }
 
   static betRequest(gameState, bet) {
@@ -35,6 +35,7 @@ class Player {
             betValue = 0
           }
         } catch (e) {
+          console.log('eeee', e)
           betValue = value * 1.20
         }
         // console.log('handChances', handChances, 'is', is)
