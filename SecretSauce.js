@@ -12,7 +12,8 @@ function getRankNum (rank, adj) {
 }
 
 function getCards ({players, in_action}) {
-  return players[in_action].hole_cards
+  const hole_cards = players[in_action].hole_cards
+  return [hole_cards[0], hole_cards[1]]
 }
 
 function isPair (state) {
