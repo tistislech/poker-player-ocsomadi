@@ -1,9 +1,9 @@
 const {isPair, isSameSuit, getRankNum, getCards} = require('./SecretSauce.js')
-const pokerOdds = require('poker-odds')
+const {getChances, isWorthIt} = require('./Odds')
 
 class Player {
   static get VERSION() {
-    return '0.28';
+    return '0.29';
   }
 
   static betRequest(gameState, bet) {
@@ -19,15 +19,32 @@ class Player {
       const isGood = isPair(gameState) || isSameSuit(gameState)
       // console.log('@@@cards numrank', getRankNum(cards[0].rank, cards[1].rank), getRankNum(cards[1].rank, cards[0].rank))
 
-      if (isPreFlop && isGood && !isHighRiskValue) {
-        betValue = value * 1.20
-      } else if (!isPreFlop && isGood && !isHighRiskValue) {
-        betValue = value
-      } else if (isLowRiskValue) {
-        betValue = value
+      if (isPreFlop) {
+        if (isGood && !isHighRiskValue) {
+          betValue = value * 1.20
+        } else {
+          betValue = 0
+        }
+      } else {
+        const handChances = getChances(getCards(gameState), gameState.community_cards)
+        const is = isWorthIt(handChances)
+        console.log('handChances', handChances, 'is', is)
+        if (is) {
+          betValue = value * 1.20
+        } else {
+          betValue = 0
+        }
       }
-
+      // if (isPreFlop && isGood && !isHighRiskValue) {
+      //   betValue = value * 1.20
+      // } else if (!isPreFlop) {
+      //   getChances(getCards(gameState), gameState.community_cards)
+      //   betValue = value
+      // } else if (isLowRiskValue) {
+      //   betValue = value
+      // }
       betValue = parseInt(betValue, 10)
+      console.log('gameState', JSON.stringify(gameState))
       console.log(
         '@@@', gameState.game_id,
         'version', this.VERSION,
@@ -37,8 +54,7 @@ class Player {
         'minRaise', gameState.minimum_raise,
         'buyIn', gameState.current_buy_in,
         'value', value,
-        'betValue', betValue,
-        'p', pokerOdds
+        'betValue', betValue
       );
 
       bet(betValue);

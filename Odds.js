@@ -1,4 +1,4 @@
-import { calculateEquity } from 'poker-odds'
+const pokerOdds = require('poker-odds')
 
 const mapCardToVendor = (card) => {
   return `${card.rank}${card.suits.charAt(0)}`
@@ -8,7 +8,7 @@ const getChances = (cards, community_cards) => {
   const hand = cards.map(c => mapCardToVendor(c))
   const board = community_cards.map(c => mapCardToVendor(c))
 
-  const [{count: allCases, handChances}] = calculateEquity([hand], board)
+  const [{count: allCases, handChances}] = pokerOdds.calculateEquity([hand], board)
 
   handChances.map(hc => {
     return {
