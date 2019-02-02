@@ -1,7 +1,7 @@
 const pokerOdds = require('poker-odds')
 
 const mapCardToVendor = (card) => {
-  return `${card.rank}${card.suit.charAt(0)}`
+  return `${card.rank === '10' ? 'T' : card.rank}${card.suit.charAt(0)}`
 }
 
 const getChances = (cards, community_cards) => {
