@@ -20,7 +20,9 @@ const getChances = (cards, community_cards) => {
 }
 
 const isWorthIt = (handChances) => {
-  return !handChances.filter(c => c.probability >= 0.2).length
+  console.log('@h', handChances)
+  console.log('@@@filtered', handChances.filter(c => c.probability >= 0.2))
+  return handChances.filter(c => c.probability >= 0.2).length
 }
 
 module.exports = { getChances, isWorthIt }
