@@ -5,8 +5,12 @@ class Player {
 
   static betRequest(gameState, bet) {
     try {
-      console.log(JSON.stringify(gameState));
-      bet(0);
+      const me = gameState.players[gameState.in_action]
+      const riskValue = me.stack * 0.1
+      console.log('@@@', me.stack, riskValue, gameState.minimum_raise);
+      const betValue = gameState.minimum_raise <= riskValue ? gameState.minimum_raise : 0
+      console.log('@@@ betValue', betValue);
+      bet(betValue);
     } catch (e) {
       console.log('@@@error', e)
       bet(0);
