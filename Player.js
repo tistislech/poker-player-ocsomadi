@@ -3,6 +3,25 @@ class Player {
     return '0.22';
   }
 
+  static getRankNum (rank) {
+    if (typeof rank === 'string') return 10
+    else return parseInt(rank, 10)
+  }
+
+  static getCards ({players, in_action}) {
+    return players[in_action].hole_cards
+  }
+
+  static isPair (state) {
+    const cards = getCards(state)
+    return cards[0].rank === cards[1].rank
+  }
+
+  static isSameSuit (state) {
+    const cards = getCards(state)
+    return cards[0].suit === cards[1].suit
+  }
+
   static betRequest(gameState, bet) {
     try {
       const me = gameState.players[gameState.in_action]
