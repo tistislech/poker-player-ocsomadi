@@ -26,4 +26,9 @@ function isSameSuit (state) {
   return cards[0].suit === cards[1].suit
 }
 
-module.exports = {isPair, isSameSuit, getRankNum, getCards}
+function isHighCard (state) {
+  const cards = getCards(state)
+  return getRankNum(cards[0].rank) >= 10 || getRankNum(cards[1].rank) >= 10 
+}
+
+module.exports = {isPair, isSameSuit, isHighCard, getRankNum, getCards}

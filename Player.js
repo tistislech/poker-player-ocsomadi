@@ -1,9 +1,9 @@
-const {isPair, isSameSuit, getRankNum, getCards} = require('./SecretSauce.js')
+const {isPair, isSameSuit, getRankNum, getCards, isHighCard} = require('./SecretSauce.js')
 const {getChances, isWorthIt} = require('./Odds')
 
 class Player {
   static get VERSION() {
-    return '0.33';
+    return '0.34';
   }
 
   static betRequest(gameState, bet) {
@@ -16,7 +16,7 @@ class Player {
       const isHighRiskValue = value >= parseInt(me.stack * 0.5, 10)
       let betValue = 0
       const isPreFlop = gameState.community_cards.length === 0
-      const isGood = isPair(gameState) || isSameSuit(gameState)
+      const isGood = isPair(gameState) || isSameSuit(gameState) || isHighCard(gameState)
       // console.log('@@@cards numrank', getRankNum(cards[0].rank, cards[1].rank), getRankNum(cards[1].rank, cards[0].rank))
 
       if (isPreFlop) {
@@ -35,18 +35,12 @@ class Player {
           betValue = 0
         }
       }
-      // if (isPreFlop && isGood && !isHighRiskValue) {
-      //   betValue = value * 1.20
-      // } else if (!isPreFlop) {
-      //   getChances(getCards(gameState), gameState.community_cards)
-      //   betValue = value
-      // } else if (isLowRiskValue) {
-      //   betValue = value
-      // }
+
       betValue = parseInt(betValue, 10)
       console.log('gameState', JSON.stringify(gameState))
       console.log(
         '@@@', gameState.game_id,
+        'isGood', isGood,
         'version', this.VERSION,
         'stack',  me.stack,
         'isHighRiskValue', isHighRiskValue,
