@@ -21,7 +21,7 @@ const getChances = (cards, community_cards) => {
 
 const isWorthIt = (handChances, isHighRiskValue) => {
   let array = isHighRiskValue ? handChances.slice(2) : handChances
-  let filtered = array.filter(c => c.probability >= 0.2)
+  let filtered = array.filter(c => c.probability >= 0.35)
   console.log('isHighRiskValue', isHighRiskValue, filtered)
   return filtered.length
 }
